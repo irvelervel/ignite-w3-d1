@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async / Await</title>
+    <style>
+        .single-post h3 {
+            color: red
+        }
+
+        .single-post p {
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hello World!</h1>
+    <div id="post-section">
+        <!-- empty at first! -->
+    </div>
+    <script>
+        window.onload = async () => {
+            // this will run every time my page has been reloaded!
+            console.log('loaded!')
+            let response = await fetch('https://jsonplaceholder.typicode.com/posts', 
+            // {
+            //     method: 'POST',
+            //     headers: {
+            //         Authorization: 'this-is-my-auth-token'
+            //     },
+            //     body: { // just with POST/PUT methods
+            //         username: 'stefano@strive.school',
+            //         password: 'password'
+            //     }
+            // }
+            )
+            // console.log(response)
+            let posts = await response.json()
+            console.log(posts)
+            
+            let postSectionReference = document.getElementById('post-section')
+            // or
+            // let postSectionReference = document.querySelector('#post-section')
+
+            for(let x=0; x<posts.length; x++) {
+                let post = document.createElement('div')
+                // <div></div>
+                post.classList.add('single-post')
+                // <div class="single-post"></div>
+                post.innerHTML += "<h3>" + posts[x].title + "</h3>"
+                // <div class="single-post">
+                    // <h3>lkdsakldskadksj</h3>
+                // </div>
+                post.innerHTML += "<p>" + posts[x].body + "</p>"
+                // <div class="single-post">
+                    // <h3>lkdsakldskadksj</h3>
+                    // <p>klasdjklsajdkslajdksjdklsjdklsaj</p>
+                // </div>
+                postSectionReference.appendChild(post)
+            }
+        }
+    </script>
+</body>
+</html>
+
+<!-- html:5 -->
